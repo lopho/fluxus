@@ -1,7 +1,7 @@
 ;; [ Copyright (C) 2008 Dave Griffiths : GPLv2 see LICENCE ]
 
-#lang racket/base
-(require scheme/class)
+(module fluxus racket
+(require racket/class)
 (require "fluxus.ss")
 
 ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,7 +61,7 @@
       (set! buttons (list-set buttons n s)))
 
     (define/public (update)
-      (define (drain path value)       ; drains all osc events for a message and 
+      (define (drain path value)       ; drains all osc events for a message and
         (if (osc-msg path)             ; only reports the last one which is ok for
             (drain path (osc 0))       ; this sort of control
             value))
@@ -99,7 +99,7 @@
 
       (define (do-buttons n)
         (let ((value (drain (string-append "/oscjoy." device ".button." (number->string n)) #f)))
-          (cond 
+          (cond
             ((number? value)
              ; have we changed?
              (if (not (eq? (get-button n) value))
@@ -118,3 +118,4 @@
 
     (super-new)))
 
+)

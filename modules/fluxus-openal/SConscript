@@ -12,6 +12,7 @@ elif env['PLATFORM'] == 'win32':
 else:
 	Target = "fluxus-openal_ss.so"
 
+static_modules = False
 if static_modules: Target = "fluxus-openal_ss"
 
 Install = BinaryModulesLocation
@@ -33,16 +34,15 @@ if env['PLATFORM'] == 'darwin':
 		Libs += ['racket3m']
 
 if static_modules:
-	env.StaticLibrary(source = Source, 
+	env.StaticLibrary(source = Source,
 				  target = Target,
 				  LIBS = Libs,
 				  FRAMEWORKS = Frameworks)
 else:
-	env.SharedLibrary(source = Source, 
+	env.SharedLibrary(source = Source,
 				  target = Target,
 				  LIBS = Libs,
 				  SHLIBPREFIX = "",
 				  FRAMEWORKS = Frameworks)
-						 
-if not static_modules: env.Install(Install, Target)
 
+if not static_modules: env.Install(Install, Target)

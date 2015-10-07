@@ -1,3 +1,4 @@
+# -*- mode: python; -*-
 ###############################################################
 # SConscript for fluxus-engine
 #
@@ -14,6 +15,7 @@ elif env['PLATFORM'] == 'win32':
 else:
 	Target = "fluxus-engine_ss.so"
 
+static_modules = False
 if static_modules: Target = "fluxus-engine_ss"
 
 Frameworks = []
@@ -61,18 +63,17 @@ Source = Split("src/Engine.cpp \
 		src/PFuncContainer.cpp \
 		src/FFGLFunctions.cpp") + \
 		[MZDYN]
-		
+
 if static_modules:
-	env.StaticLibrary(source = Source, 
+	env.StaticLibrary(source = Source,
 				  target = Target,
 				  LIBS = Libs,
 				  FRAMEWORKS = Frameworks)
 else:
-	env.SharedLibrary(source = Source, 
-				  target = Target, 
+	env.SharedLibrary(source = Source,
+				  target = Target,
 				  LIBS = Libs,
 				  SHLIBPREFIX = "",
 				  FRAMEWORKS = Frameworks)
-						  
-if not static_modules: env.Install(Install, Target)
 
+if not static_modules: env.Install(Install, Target)

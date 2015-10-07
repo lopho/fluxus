@@ -311,10 +311,11 @@ if not GetOption('clean'):
 			'++lib', 'racket/base/lang/reader',
 			'++lib', 'xml/xml',
 			'++lib', 'compiler',
-			'++lib', 'mzscheme',
-			'++lib', 'mzlib/string',
+			'++lib', 'racket',
+	#		'++lib', 'mzlib/string',
 			'++lib', 'setup',
-			'++lib', 'config'])
+	#		'++lib', 'config'
+                               ])
 	else:
 		raco_status = subprocess.call(['raco', 'ctool', '--c-mods', 'src/base.c', '++lib', 'racket/base'])
 
@@ -341,15 +342,16 @@ if not GetOption('clean') and static_modules:
 	# statically link in all the fluxus modules
 	# these pick up the 'libfluxus-engine_ss.a' libs
 	# rather than .so due to the 'lib' at the start
-	app_env.Append(LIBPATH = ["modules/fluxus-engine/"])
-	app_env.Append(LIBPATH = ["modules/fluxus-osc/"])
-	app_env.Append(LIBPATH = ["modules/fluxus-audio/"])
-	app_env.Append(LIBPATH = ["modules/fluxus-midi/"])
-	app_env.Append(LIBPATH = ["libfluxus/"])
-	app_env.Append(LIBS = ["fluxus-engine_ss"])
-	app_env.Append(LIBS = ["fluxus-osc_ss"])
-	app_env.Append(LIBS = ["fluxus-audio_ss"])
-	app_env.Append(LIBS = ["fluxus-midi_ss"])
+
+	# app_env.Append(LIBPATH = ["modules/fluxus-engine/"])
+	# app_env.Append(LIBPATH = ["modules/fluxus-osc/"])
+	# app_env.Append(LIBPATH = ["modules/fluxus-audio/"])
+	# app_env.Append(LIBPATH = ["modules/fluxus-midi/"])
+	# app_env.Append(LIBPATH = ["libfluxus/"])
+	# app_env.Append(LIBS = ["fluxus-engine_ss"])
+	# app_env.Append(LIBS = ["fluxus-osc_ss"])
+	# app_env.Append(LIBS = ["fluxus-audio_ss"])
+	# app_env.Append(LIBS = ["fluxus-midi_ss"])
 
 	if static_everything:
 		# this is all a bit fragile, due to the need to put all the
@@ -383,10 +385,10 @@ if not GetOption('clean') and static_modules:
 		app_env.Append(LINKCOM = ' -Wl,-Bstatic -lracket3m -Wl,-Bdynamic -lffi')
 
 		# have to add the libs needed by the fluxus modules here
-		app_env.Append(LIBS = ["fluxus"])
-		app_env.Append(LIBS = ["jack"])
-		app_env.Append(LIBS = ["asound"])
-		app_env.Append(LIBS = ["ode"])
+		# app_env.Append(LIBS = ["fluxus"])
+		# app_env.Append(LIBS = ["jack"])
+		# app_env.Append(LIBS = ["asound"])
+		# app_env.Append(LIBS = ["ode"])
 
 app_env.Program(source = Source, target = Target)
 

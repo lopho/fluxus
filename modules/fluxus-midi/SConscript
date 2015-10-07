@@ -10,6 +10,7 @@ if env['PLATFORM'] == 'darwin':
 else:
 	Target = "fluxus-midi_ss.so"
 
+static_modules = False
 if static_modules: Target = "fluxus-midi_ss"
 
 Install = BinaryModulesLocation
@@ -35,16 +36,15 @@ elif env['PLATFORM'] == 'darwin':
 	env.Append(CCFLAGS = ' -D__MACOSX_CORE__')
 
 if static_modules:
-	env.StaticLibrary(source = Source, 
+	env.StaticLibrary(source = Source,
 				  target = Target,
 				  FRAMEWORKS = Frameworks,
 				  LIBS = Libs)
 else:
-	env.SharedLibrary(source = Source, 
+	env.SharedLibrary(source = Source,
 				  target = Target,
 				  LIBS = Libs,
 				  FRAMEWORKS = Frameworks,
 				  SHLIBPREFIX = "")
-						 
-if not static_modules: env.Install(Install, Target)
 
+if not static_modules: env.Install(Install, Target)

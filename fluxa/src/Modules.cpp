@@ -865,10 +865,20 @@ void Delay::Process(unsigned int BufSize, Sample &In, Sample &DelayCV, Sample &F
 
 void Delay::Process(unsigned int BufSize, Sample &In, Sample &Out)
 {
+    if (m_Delay>MAX_DELAYTIME) m_Delay=MAX_DELAYTIME;
+    if (m_Delay<0) m_Delay=0;
+
 	unsigned int delay=(unsigned int)(m_SampleRate*m_Delay);
+
+    if (m_Feedback>0.99) m_Feedback=0.99;
+    if (m_Feedback<0) m_Feedback=0;
 
 	if (delay==0)
 	{
+        for (unsigned int n=0; n<BufSize; n++)
+        {
+            Out[n]=In[n];
+        }
 		return;
 	}
 

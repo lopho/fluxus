@@ -479,7 +479,7 @@ void XFadeNode::Process(unsigned int bufsize)
 					for (unsigned int n=0; n<bufsize; n++) m_Output[n]=value;
 				}
 				else
-				{
+			{
 					float v0 = GetChild(0)->GetValue();
 					float v1 = GetChild(1)->GetValue();
 

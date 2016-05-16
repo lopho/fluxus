@@ -101,11 +101,11 @@ export DYLD_FRAMEWORK_PATH=/Applications/Racket\ v5.3.1/lib/
 You might need to change the Racket version number according to
 the binary package you have installed.
 
-In OS X 10.8 install the library dependencies as universal:
+In OS X 10.8 install the library dependencies:
 
-sudo port install fftw-3 +universal glew +universal freetype +universal jpeg +universal \
-	liblo +universal libpng +universal libsndfile +universal ode +universal \
-	tiff +universal zlib +universal scons
+sudo port install fftw-3 glew freetype jpeg \
+	liblo libpng libsndfile ode \
+	tiff zlib scons
 
 Install JackOSX 0.90+ on OS X 10.8 (http://www.jackosx.com/) instead of
 MacPorts jack.

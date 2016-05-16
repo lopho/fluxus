@@ -47,7 +47,7 @@ static const string STARTUP_SCRIPT=\
   "(define fluxus-data-location \"%s\")\n"     \
   "(define static-link \"%s\")\n"              \
   "(define fluxus-platform '%s)\n"             \
-  "(load \"/usr/local/lib/fluxus-018/boot.rkt\")\n" \
+  "(load \"" PREFIX "/lib/fluxus-018/boot.rkt\")\n" \
   "(load (string-append fluxus-collects-location \"/fluxus-\" " \
   "fluxus-version \"/boot.rkt\"))";
 

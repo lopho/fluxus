@@ -102,9 +102,8 @@ if env['PLATFORM'] == 'win32':
 	LibPaths += [ "/MinGW/lib" ]
 
 if env['PLATFORM'] == 'darwin':
-	env.Append(CCFLAGS = ' -arch i386 ')
-	env.Append(LINKFLAGS = ' -arch i386 ')
-	env.Append(CCFLAGS = ' -mmacosx-version-min=10.6 ')
+	env.Append(CCFLAGS=' -stdlib=libc++ ')
+	env.Append(CCFLAGS = ' -mmacosx-version-min=10.8 ')
 	if os.path.exists('/opt/local/lib'):
 		# macports
 		IncludePaths += ['/opt/local/include', '/opt/local/include/freetype2']
@@ -121,6 +120,7 @@ env.Append(CCFLAGS=' -DFLUXUS_MINOR_VERSION='+MinorVersion)
 env.Append(CCFLAGS=" -DRACKET_COLLECTS_LOCATION="+"\"\\\""+RacketCollectsLocation+"\"\\\"")
 env.Append(CCFLAGS=" -DFLUXUS_COLLECTS_LOCATION="+"\"\\\""+FluxusCollectsLocation+"\"\\\"")
 env.Append(CCFLAGS=" -DDATA_LOCATION="+"\"\\\""+DataLocation+"\"\\\"")
+env.Append(CCFLAGS=" -DPREFIX="+"\"\\\""+Prefix+"\"\\\"")
 
 if ARGUMENTS.get("GLSL","1")=="1":
         env.Append(CCFLAGS=' -DGLSL')

@@ -281,8 +281,8 @@ void Fluxa::Process(unsigned int BufSize)
 	}
 
 	m_Graph.Process(BufSize,m_LeftBuffer,m_RightBuffer);
-	m_LeftEq.Process(BufSize,m_LeftBuffer);
-	m_RightEq.Process(BufSize,m_RightBuffer);
+//	m_LeftEq.Process(BufSize,m_LeftBuffer);
+//	m_RightEq.Process(BufSize,m_RightBuffer);
 
 	// panning
 	float leftpan=1,rightpan=1;

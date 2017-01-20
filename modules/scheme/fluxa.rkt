@@ -21,7 +21,7 @@
 		play play-now seq clock-map clock-split volume pan max-synths note searchpath reset eq comp
 		sine saw tri squ white pink adsr add sub mul div pow mooglp moogbp mooghp formant sample
 		crush distort klip echo ks xfade s&h t&h reload zmod modeq? sync-tempo sync-clock fluxa-init fluxa-debug set-global-offset
-		set-bpm-mult logical-time inter pick set-scale in synced-in clear-pings! bootstrap pad mass cryptodistort bpb)
+		set-bpm-mult logical-time inter pick set-scale in synced-in clear-pings! bootstrap pad mass cryptodistort bpb modulor modulob)
 
 (define time-offset 0.0)
 (define sync-offset 0.0)
@@ -1090,13 +1090,16 @@
 
 (define (zop time clock zap) 0)
 
+(define bar-count 0)
+
 (define (bootstrap fn)
   (define (_ time clock zap)
-    (synced-in time _ sync-clock zap)
+    (synced-in time _ sync-clock bar-count)
     (when (zmod sync-clock bpb)
-          (in time 1 (fn) 0 zap)))
+          (set! bar-count (+ bar-count 1))
+          (in time 1 (fn) 0 bar-count)))
   (reset)
-  (synced-in (time-now) _ sync-clock 0))
+  (synced-in (time-now) _ sync-clock bar-count))
 
 ;---------------------------------------
 ; fluxus implementation
@@ -1222,5 +1225,13 @@
    ((eq? (length l) 1) (car l))
    ((eq? (length l) 2) (p (car l) (cadr l)))
    (else (p (car l) (proc-list p (cdr l))))))
+
+(define (modulor m n)
+  (- (- n 1) (modulo m n)))
+
+(define (modulob m n)
+  (if (< (modulo m n) (/ n 2))
+      (modulo m n)
+      (- (- n 1) (modulo m n))))
 
 )

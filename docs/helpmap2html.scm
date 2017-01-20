@@ -19,10 +19,10 @@
 ; a script to convert the fluxus helpmap into a human readable text file
 ; fixed by Claude Heiland-Allen 
 
-#lang racket/base
+;#lang racket/base
 
-(require scheme/file)
-(require scheme/path)
+(require racket/file)
+(require racket/path)
 
 (define (clean-id name) (regexp-replace "[!?<>]" name "_"))
 (define (clean-text text) (regexp-replace ">" (regexp-replace "<" (regexp-replace "&" text "\\&amp;") "\\&lt;") "\\&gt;"))

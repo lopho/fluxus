@@ -19,7 +19,7 @@
 #include "State.h"
 
 using namespace Fluxus;
-	
+
 TextPrimitive::TextPrimitive(float charw, float charh, int charstride, int wrapchars) :
 PolyPrimitive(PolyPrimitive::QUADS),
 m_CharWidth(charw),
@@ -46,27 +46,27 @@ m_Crowd(other.m_Crowd)
 {
 }
 
-TextPrimitive* TextPrimitive::Clone() const 
+TextPrimitive* TextPrimitive::Clone() const
 {
-	return new TextPrimitive(*this); 
+	return new TextPrimitive(*this);
 }
 
 void TextPrimitive::SetText(const string &s, float Width, float Height, float Zoom)
 {
 	float x=0,y=0;
 	dVector Normal(0,0,1);
-	
+
 	float w=m_CharWidth*Width;
 	float h=m_CharHeight*Height;
-	
+
 	m_TextWidth=w*s.size();
 	m_TextHeight=h;
 	int wrapcount=0;
-		
-	w-=Zoom*50; //??? some constant scaling to covert from texture 
+
+	w-=Zoom*50.0f;  //??? some constant scaling to covert from texture
                 // coordinates to world space
 
-	Clear();	
+	Clear();
 
 	for (unsigned int n=0; n<s.size(); n++)
 	{
@@ -74,19 +74,19 @@ void TextPrimitive::SetText(const string &s, float Width, float Height, float Zo
 
 		float S=(pos%m_CharStride)*m_CharWidth+m_XOff;
 		float T=(pos/m_CharStride)*m_CharHeight+m_YOff;
-		
+
 		dVector min(S,T,0);
 		dVector max(S+m_CharWidth,T+m_CharHeight,0);
-				
+
 		min.x+=Zoom;
 		max.x-=Zoom;
-		
+
 		AddVertex(dVertex(dVector(x,y,0),Normal,min.x,1-min.y));
 		AddVertex(dVertex(dVector(x+w,y,0),Normal,max.x,1-min.y));
 		AddVertex(dVertex(dVector(x+w,y+h,0),Normal,max.x,1-max.y));
 		AddVertex(dVertex(dVector(x,y+h,0),Normal,min.x,1-max.y));
 		if (m_WrapChars) wrapcount++;
-		
+
 		if (s[n]=='\n' || (m_WrapChars && wrapcount>m_WrapChars))
 		{
 			y+=h;

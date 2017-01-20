@@ -51,11 +51,11 @@ bool JackClient::Attach(const string &ClientName)
 {
 	if (m_Attached) return true;
 
-	if (!(m_Client = jack_client_new(ClientName.c_str())))
-	{
-		cerr<<"jack server not running?"<<endl;
-		return false;
-	}
+    jack_options_t j_options = JackNullOption;
+    if (!(m_Client = jack_client_open(ClientName.c_str(), j_options, NULL))) {
+        cerr<<"jack server not running?"<<endl;
+        return false;
+    }
 
 	jack_set_process_callback(m_Client, JackClient::Process, 0);
 	jack_set_sample_rate_callback (m_Client, JackClient::OnSRateChange, 0);
